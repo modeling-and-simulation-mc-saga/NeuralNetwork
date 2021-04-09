@@ -28,18 +28,16 @@ public class LearningOrGate {
         //or gate
         int numInput = 3;
         CorrectResponse correctResponse = input -> {
-            if (input.get(0) + input.get(1) > -1.) {
-                return 1.;
-            }
-            return -1.;
+
+        
+            return 0;
         };
-        List<Double> answerWeight = Arrays.asList(1., 1., 1.);
+        List<Double> answerWeight;
         Neuron.normalize(answerWeight);
         DoubleFunction<Double> responseFunction = x -> {
-            if (x >= 0.) {
-                return 1.;
-            }
-            return -1.;
+
+        
+            return 0;
         };
 
         LerningLogicGates or = new LerningLogicGates(
