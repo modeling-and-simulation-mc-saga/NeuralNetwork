@@ -10,6 +10,7 @@ import java.util.Random;
  * @author tadaki
  */
 public abstract class AbstractMultiLayer {
+    private final String nl = System.getProperty("line.separator");
 
     protected final int numInput;//固定入力も含む
     protected final CorrectResponse answer;//入力に対する正しい応答
@@ -54,6 +55,25 @@ public abstract class AbstractMultiLayer {
         return w;
     }
 
+    /**
+     * 出力ニューロンを返す
+     * @return 
+     */
+    public Neuron getResponseNeuron() {
+        return responseNeuron;
+    }
+
+    public String getResponseStr(){
+        List<List<Double>> allInput = Neuron.allInput(numInput);
+        StringBuilder sb=new StringBuilder();
+        for(List<Double> input:allInput){
+            double r = response(input);
+            sb.append(input).append(":").append(String.format("%.2f",r));
+            sb.append(nl);
+        }
+        return sb.toString();
+    }
+    
     /**
      * 入力に対して、最終的な出力を得る
      * @param input

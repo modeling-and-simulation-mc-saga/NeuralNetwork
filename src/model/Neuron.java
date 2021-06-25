@@ -8,10 +8,11 @@ import java.util.function.DoubleFunction;
 
 /**
  * model neuron
- * 
+ *
  * @author tadaki
  */
 public class Neuron {
+    private final String nl = System.getProperty("line.separator");
 
     private final String label;
     private final List<Double> weight;//最後の要素は閾値に相当
@@ -33,9 +34,9 @@ public class Neuron {
 
     /**
      * Response to input
-     * 
+     *
      * @param input
-     * @return 
+     * @return
      */
     public Double response(List<Double> input) {
         if (fixOutput) {
@@ -48,7 +49,12 @@ public class Neuron {
         return function.apply(x);
     }
 
-    
+    /**
+     * return string output to the input
+     *
+     * @param input
+     * @return
+     */
     public String strResponse(List<Double> input) {
         Double r = response(input);
         StringJoiner sj = new StringJoiner(",", "(", ")");
@@ -59,14 +65,28 @@ public class Neuron {
         return str;
     }
 
+    /**
+     * Neuron への全ての入力パターンとそれに対する応答を文字列として返す
+     * @return 
+     */
+    public String getAllResponseStr(){
+        List<List<Double>> data = allInput(weight.size());
+                StringBuilder sb = new StringBuilder();
+        for (List<Double> inputData : data) {
+            double r = response(inputData);
+            sb.append(inputData).append(":").append(String.format("%.2f",r));
+            sb.append(nl);
+        }
+        return sb.toString();
+    }
     public void normalizeWeight() {
         normalize(weight);
     }
 
     /**
      * Normalize vector
-     * 
-     * @param vector 
+     *
+     * @param vector
      */
     public static void normalize(List<Double> vector) {
         double a = 0.;
@@ -84,9 +104,9 @@ public class Neuron {
 
     /**
      * Update weights responding to input
-     * 
+     *
      * @param input
-     * @param coeff 
+     * @param coeff
      */
     public void update(List<Double> input, double coeff) {
         if (fixOutput) {
@@ -110,6 +130,34 @@ public class Neuron {
 
     public boolean isFixOutput() {
         return fixOutput;
+    }
+
+    
+    /**
+     * 全ての入力パターンを生成する
+     * @param n
+     * @return 
+     */
+    public static List<List<Double>> allInput(int n) {
+        List<List<Double>> inputList = Collections.synchronizedList(new ArrayList<>());
+        List<Double> list = new ArrayList<>();
+        createInputList(0, list, inputList, n);
+        return inputList;
+    }
+
+    private static void createInputList(int k, List<Double> list, 
+            List<List<Double>> inputList, int n) {
+        if (k > n - 2) {
+            list.add(1.);
+            inputList.add(list);
+            return;
+        }
+        List<Double> newList = new ArrayList<>(list);
+        newList.add(1.);
+        createInputList(k + 1, newList, inputList, n);
+        newList = new ArrayList<>(list);
+        newList.add(-1.);
+        createInputList(k + 1, newList, inputList, n);
     }
 
 }
