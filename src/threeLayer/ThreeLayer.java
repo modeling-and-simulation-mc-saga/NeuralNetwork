@@ -38,7 +38,7 @@ public class ThreeLayer extends AbstractMultiLayer {
             CorrectResponse answer, Random random) {
 
         super(numInput, answer, random);
-        
+
         //initialize response neuron
         List<Double> initialWeight = simpleWeight(numAssociateNeurons);
         if (!debug) {
@@ -84,7 +84,9 @@ public class ThreeLayer extends AbstractMultiLayer {
         double c = eta - etac;
         List<Double> sList = responseNeuron.getWeight();
         c = updateResponseUnit(input, coeff, c, sList);
-        System.out.println(input + ":" + c);
+        if (debug) {
+            System.out.println(input + ":" + c);
+        }
         updateAssociateUnit(input, coeff, c, sList);
     }
 
@@ -143,6 +145,10 @@ public class ThreeLayer extends AbstractMultiLayer {
             energy += c * c / 2.;
         }
         return energy / inputList.size();
+    }
+
+    public List<Neuron> getAssociateNeurons() {
+        return associateNeurons;
     }
 
 }
