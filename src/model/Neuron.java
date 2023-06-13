@@ -76,7 +76,8 @@ public class Neuron {
         StringBuilder sb = new StringBuilder();
         for (List<Double> inputData : data) {
             double r = response(inputData);
-            sb.append(inputData).append(":").append(String.format("%.2f", r));
+            sb.append(inputData).append(":");
+            sb.append(String.format("%.2f", r));
             sb.append(nl);
         }
         return sb.toString();
@@ -121,6 +122,9 @@ public class Neuron {
         }
     }
 
+    /********* setters and getters *****************/
+    
+    
     public List<Double> getWeight() {
         List<Double> list = Collections.synchronizedList(new ArrayList<>());
         weight.forEach(w -> list.add(w));
@@ -142,7 +146,8 @@ public class Neuron {
      * @return
      */
     public static List<List<Double>> allInput(int n) {
-        List<List<Double>> inputList = Collections.synchronizedList(new ArrayList<>());
+        List<List<Double>> inputList = 
+                Collections.synchronizedList(new ArrayList<>());
         List<Double> list = new ArrayList<>();
         createInputList(0, list, inputList, n);
         return inputList;
