@@ -12,12 +12,13 @@ import java.util.function.DoubleFunction;
  * @author tadaki
  */
 public class Neuron {
+
     private final String nl = System.getProperty("line.separator");
 
     private final String label;
-    private final List<Double> weight;//最後の要素は閾値に相当
-    private final DoubleFunction<Double> function;//応答関数
-    private boolean fixOutput = false;//隠れ層用ダミーではtrue
+    private final List<Double> weight;//the last elements is the threshold
+    private final DoubleFunction<Double> function;//responce function
+    private boolean fixOutput = false;//true corresponding to input of the threshold
 
     /**
      *
@@ -66,19 +67,21 @@ public class Neuron {
     }
 
     /**
-     * Neuron への全ての入力パターンとそれに対する応答を文字列として返す
-     * @return 
+     * Return all possible output
+     *
+     * @return
      */
-    public String getAllResponseStr(){
+    public String getAllResponseStr() {
         List<List<Double>> data = allInput(weight.size());
-                StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (List<Double> inputData : data) {
             double r = response(inputData);
-            sb.append(inputData).append(":").append(String.format("%.2f",r));
+            sb.append(inputData).append(":").append(String.format("%.2f", r));
             sb.append(nl);
         }
         return sb.toString();
     }
+
     public void normalizeWeight() {
         normalize(weight);
     }
@@ -132,11 +135,11 @@ public class Neuron {
         return fixOutput;
     }
 
-    
     /**
-     * 全ての入力パターンを生成する
+     * Generate all possible input patters
+     *
      * @param n
-     * @return 
+     * @return
      */
     public static List<List<Double>> allInput(int n) {
         List<List<Double>> inputList = Collections.synchronizedList(new ArrayList<>());
@@ -145,7 +148,7 @@ public class Neuron {
         return inputList;
     }
 
-    private static void createInputList(int k, List<Double> list, 
+    private static void createInputList(int k, List<Double> list,
             List<List<Double>> inputList, int n) {
         if (k > n - 2) {
             list.add(1.);
