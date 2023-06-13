@@ -8,13 +8,13 @@ import model.Neuron;
 import model.CorrectResponse;
 
 /**
- * 2層perceptron
+ * Two-layer perceptron
  *
  * @author tadaki
  */
 public class TwoLayer extends AbstractMultiLayer {
 
-    private List<Double> answerWeight;//目標となる重みベクトル
+    private List<Double> targetWeight;//Target weight vector
     private final boolean debug = false;
 
     public TwoLayer(int numInput, CorrectResponse answer,
@@ -51,14 +51,15 @@ public class TwoLayer extends AbstractMultiLayer {
     }
 
     /**
-     * 現在の重みベクトルと目標ベクトルの内積
-     * @return 
+     * Inner product between current and target weight vectors
+     *
+     * @return
      */
     public double deviation() {
         List<Double> weight = responseNeuron.getWeight();
         double c = 0.;
         for (int i = 0; i < weight.size(); i++) {
-            c += weight.get(i) * answerWeight.get(i);
+            c += weight.get(i) * targetWeight.get(i);
         }
         if (debug) {
             System.out.println(c);
@@ -66,8 +67,8 @@ public class TwoLayer extends AbstractMultiLayer {
         return c;
     }
 
-    public void setAnswerWeight(List<Double> answerWeight) {
-        this.answerWeight = answerWeight;
+    public void setTargetWeight(List<Double> targetWeight) {
+        this.targetWeight = targetWeight;
     }
 
     public List<Double> getWeight() {

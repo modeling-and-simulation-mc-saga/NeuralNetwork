@@ -14,13 +14,13 @@ import java.util.function.DoubleFunction;
 import model.*;
 
 /**
- * 論理ゲートを2層perceptronで学習する
+ * Learning logical gates by two-layer perceptron
  *
  * @author tadaki
  */
 public class LerningLogicGates {
 
-    private final int numInput;//NOTは2、ANDとORは3
+    private final int numInput;//2 for NOT gate and 3 for AND and OR gates
     private final Random random;
     private final TwoLayer sys;
 
@@ -30,7 +30,7 @@ public class LerningLogicGates {
         this.numInput = numInput;
         this.random = random;
         sys = new TwoLayer(numInput, answer, responseFunction, random);
-        sys.setAnswerWeight(answerWeight);
+        sys.setTargetWeight(answerWeight);
     }
 
     public List<Point2D.Double> learning(int tmax, double c) {
