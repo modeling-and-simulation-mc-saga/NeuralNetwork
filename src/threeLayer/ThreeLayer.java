@@ -23,12 +23,12 @@ public class ThreeLayer extends AbstractMultiLayer {
 
     /**
      *
-     * @param numInput//固定入力を含む
-     * @param numAssociateNeurons//固定入力を含む
-     * @param f 中間層の応答関数
-     * @param g 出力層の応答関数
-     * @param fd 中間層の応答関数の一階微分
-     * @param gd 出力層の応答関数の一階微分
+     * @param numInput The number of inputs including fixed one
+     * @param numAssociateNeurons The number of associate neurons including fixed one
+     * @param f Response function at assoicate layer
+     * @param g Response function at output layer
+     * @param fd Derivative of f
+     * @param gd Derivative of g
      * @param answer
      * @param random
      */
@@ -124,7 +124,7 @@ public class ThreeLayer extends AbstractMultiLayer {
      */
     private double updateResponseUnit(List<Double> input,
             double coeff, double c, List<Double> sList) {
-        //assoiation unitの応答
+        //assoiation unit
         List<Double> aResponse = associateResponse(input);
         double x = 0.;
         for (int k = 0; k < associateNeurons.size(); k++) {

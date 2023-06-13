@@ -60,7 +60,7 @@ public class LearningThreeLayer {
     }
 
     /**
-     * システム全体の応答
+     * Return the response from the system
      * @return 
      */
     public String getResponseStr() {
@@ -68,7 +68,7 @@ public class LearningThreeLayer {
     }
 
     /**
-     * responce unitの応答
+     * responce from the response unit
      * @return 
      */
     public String responceUnitStr(){
